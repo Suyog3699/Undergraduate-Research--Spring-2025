@@ -1,0 +1,340 @@
+---
+title: "Activity3_ME"
+author: "Suyog Timalsina"
+output: html_document
+date: "2025-02-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Getting Started With R/RStudio and Data Cleaning Basic
+
+### All the topics we gonna learn in this Activity
+* [1. Using `TinyTex`]
+* [2. Vectors] 
+* [2.1 Vector with numerical values in a sequence]
+* [2.2  Generates a vector of random numbers following a normal distribution using rnorm() function]
+* [Matrices ]
+* [3.1  Operations on Matrices in R]
+
+## 1. Using `TinyTex`
+
+## 2. Vectors
+
+-   to combine the list of items to a vector, we use the `c()` function and separate the items by a comma.
+-   Vector of numerical values
+
+```{r}
+x <- c(-6,-3,-4,9,10,11)
+x
+
+# to access one of the element
+x[2]
+
+# All but the second element
+x[-2]
+
+# accessing first and fourth element
+x[c(1,4)]
+
+#length 
+length(x)
+```
+
+### 2.1 Vector with numerical values in a sequence
+
+```{r}
+# A sequence of values from 1 to 12
+y <- 1:12
+y
+```
+
+```{r}
+# Vector with numerical decimals in a sequence
+y <- 1.2:5.2
+y
+```
+
+-   **Sort a Vector using the sort() function**
+
+```{r}
+sortX <- c(95,65,53,-58,569,-4886)
+
+sorted_x_desc <- sort(sortX, decreasing = TRUE )  #Descending order
+print(sorted_x_desc)
+
+```
+
+-   **Sort a Vector which has value alphabetical**
+
+```{r}
+color <- c("apple", "orange", "lime","red","blue")
+color
+```
+
+-   **Change item**
+
+```{r}
+color[1] <- "black"
+color
+```
+
+-   **to repeat vectors, use the `rep()` function**
+
+```{r}
+# Repeat each value three-time
+repeat_three_time <- rep(c(2,4,6), each = 3)
+
+repeat_three_time
+```
+
+```{r}
+# Repeat each value independently
+repeat_inde <- rep(c(2,4,6), times = c(4,2,1))
+
+repeat_inde
+```
+
+-   **to make bigger or smaller steps in a sequence, `use the seq()` function**
+
+```{r}
+w <- seq(from = 0 , to = 200, by= 20)
+w
+```
+
+-   **Creating an empty vector**
+
+```{r}
+z <- vector(length = 5)
+z
+```
+
+```{r}
+z[1] <- 110
+z[4] <- 15
+z[5] <- x[4] + 5
+z
+```
+
+-   **Operation on Vectors**
+
+```{r}
+x <- c(5, 0, 3, 4, 7, 20)
+k <- c(6, 8, 1, 5, 2, 5)
+
+# addition
+d <- x + k
+d
+```
+
+```{r}
+# Subtraction
+d <- x - k
+d
+```
+
+```{r}
+# Division
+d <- x / k
+d
+```
+
+```{r}
+# Square
+x^2 
+```
+
+```{r}
+# Pairwise comparisons
+x <= k
+```
+
+### 2.2  Generates a vector of random numbers following a normal distribution using rnorm() function
+
+```{r}
+# generates 3 random number
+rnorm(3)   
+```
+
+```{r}
+# provide our own mean and standard deviation
+v <- rnorm(8, mean=10, sd=2)
+v
+```
+
+* **Some common Function on Vector in R**
+* max(), min(), length(), sum().
+* mean(), median(), var(), sd().
+* summary()
+
+
+
+
+
+
+
+# Matrices 
+* A matrix can be created with the matrix() function.
+
+* The arguments to this matrix() are the set of elements in the vector.
+
+* Specify how many numbers of rows using nrow and how many numbers of columns using ncol to get the amount of rows and columns.
+
+* Note: By default, matrices are in column-wise order.
+
+* Create a matrix a blank matrix
+
+```{r}
+A = matrix(,nrow = 6, ncol = 4)
+A
+```
+
+* creating a matrix 
+```{r}
+# In R programming, a 2D array is referred to as a "matrix"
+m <- matrix(c(3,4,5,6), nrow = 2, ncol = 2)
+m
+```
+
+```{r}
+# To determines if an object is a matrix
+is.matrix(m)
+```
+
+* create a matrix with strings
+```{r}
+# By default, matrices are in column-wise order
+# to make it in row, byrow = TRUE,
+m1<- matrix(c("orange", "lime","red","blue"), nrow = 2, ncol = 2)
+m1
+```
+
+```{r}
+#The Number of rows and columns in a Matrix
+dim(m) 
+```
+
+```{r}
+#The dimension of a Matrix
+length(m)
+```
+
+* Acessing the Matrix Items
+* The items can be accessed with the brackets [ ]. The first number, “1,” in the bracket, specifies the row position, while the second, “2,” specifies the column position.
+
+```{r}
+m <- matrix(c(3,4,5,6), nrow = 2, ncol = 2)
+m
+```
+
+```{r}
+# First row and second column
+m[1, 2]
+```
+
+```{r}
+# To access the whole row
+m[1, ]
+```
+
+```{r}
+# To access the whole column
+m[, 2]
+```
+
+* Access More Than One Row/or Access More Than One Column
+```{r}
+mat <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3)
+mat
+```
+
+```{r}
+#Access More Than One Row
+mat[c(1,3), ]
+```
+
+```{r}
+#Access More Than One Column
+mat[ , c(1,2)]
+```
+
+* Add Rows and Columns
+
+* Use the rbind() function to add additional rows in a Matrix.
+
+* Use the cbind() function to add additional columns in a Matrix
+
+* Note: The cells in the new row must be of the same length as the existing matrix.
+
+```{r}
+#Add additional rows in a Matrix
+newmatrix <- rbind(mat, c(20,30,40))
+newmatrix
+```
+
+```{r}
+#Add additional columns in a Matrix 
+newmatrix <- cbind(mat, c(20,30,40))
+newmatrix
+```
+
+```{r}
+#Remove the first row and the first column
+newmat <- mat[-c(1), -c(1)]
+newmat
+```
+
+* combine two Matrices
+```{r}
+Mat1 <- matrix(c(1,2,3,4), nrow = 2, ncol = 2)
+Mat2 <- matrix(c(10,20,30,40), nrow = 2, ncol = 2)
+# Adding it as a rows
+Mat_Combined <- rbind(Mat1, Mat2)
+Mat_Combined
+```
+
+```{r}
+# Adding it as a columns
+Mat_Combined <- cbind(Mat1, Mat2)
+Mat_Combined
+```
+
+## 3.1  Operations on Matrices in R
+
+* Matrices Multiplication
+
+* For matrix multiplication to be valid, the number of columns in the first matrix (mat3) must equal the number of rows in the second matrix (mat4).
+
+* The resulting matrix will have the same number of rows as the first matrix (mat3) and the same number of columns as the second matrix (mat4).
+
+```{r}
+mat3 <- matrix(rep(5,9), ncol = 3)
+mat3
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
