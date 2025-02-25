@@ -1,0 +1,1048 @@
+---
+title: "Activity3_ME"
+author: "Suyog Timalsina"
+date: "2025-02-18"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Getting Started With R/RStudio and Data Cleaning Basic
+
+### All the topics we gonna learn in this Activity
+
+-   [1. Using `TinyTex`]
+-   [2. Vectors]
+-   [2.1 Vector with numerical values in a sequence]
+-   [2.2 Generates a vector of random numbers following a normal distribution using rnorm() function](#generates-a-vector-of-random-numbers-following-a-normal-distribution-using-rnorm-function)
+-   [Matrices]
+-   [3.1 Operations on Matrices in R]
+-   [4. Data Frames]
+-   [4.1 Create the Data Frame]
+-   [4.2 Subset Data Frame in R using dplyr package]
+-   [4.3 Overview of Data Frame Operations]
+-   [4.4. Dealing with Missing Data]
+-   [5. SQL With R]
+-   [6. Web Scraping in R]
+-   [7. IF Statement,Else If,NESTED , WHILE LOOP , FOR LOOPS]
+-   [8. AND , OR Operator]
+-   [9. Functions]
+
+
+## 1. Using `TinyTex`
+
+## 2. Vectors
+
+-   to combine the list of items to a vector, we use the `c()` function and separate the items by a comma.
+-   Vector of numerical values
+
+```{r}
+x <- c(-6,-3,-4,9,10,11)
+x
+
+# to access one of the element
+x[2]
+
+# All but the second element
+x[-2]
+
+# accessing first and fourth element
+x[c(1,4)]
+
+#length 
+length(x)
+```
+
+### 2.1 Vector with numerical values in a sequence
+
+```{r}
+# A sequence of values from 1 to 12
+y <- 1:12
+y
+```
+
+```{r}
+# Vector with numerical decimals in a sequence
+y <- 1.2:5.2
+y
+```
+
+-   **Sort a Vector using the sort() function**
+
+```{r}
+sortX <- c(95,65,53,-58,569,-4886)
+
+sorted_x_desc <- sort(sortX, decreasing = TRUE )  #Descending order
+print(sorted_x_desc)
+
+```
+
+-   **Sort a Vector which has value alphabetical**
+
+```{r}
+color <- c("apple", "orange", "lime","red","blue")
+color
+```
+
+-   **Change item**
+
+```{r}
+color[1] <- "black"
+color
+```
+
+-   **to repeat vectors, use the `rep()` function**
+
+```{r}
+# Repeat each value three-time
+repeat_three_time <- rep(c(2,4,6), each = 3)
+
+repeat_three_time
+```
+
+```{r}
+# Repeat each value independently
+repeat_inde <- rep(c(2,4,6), times = c(4,2,1))
+
+repeat_inde
+```
+
+-   **to make bigger or smaller steps in a sequence, `use the seq()` function**
+
+```{r}
+w <- seq(from = 0 , to = 200, by= 20)
+w
+```
+
+-   **Creating an empty vector**
+
+```{r}
+z <- vector(length = 5)
+z
+```
+
+```{r}
+z[1] <- 110
+z[4] <- 15
+z[5] <- x[4] + 5
+z
+```
+
+-   **Operation on Vectors**
+
+```{r}
+x <- c(5, 0, 3, 4, 7, 20)
+k <- c(6, 8, 1, 5, 2, 5)
+
+# addition
+d <- x + k
+d
+```
+
+```{r}
+# Subtraction
+d <- x - k
+d
+```
+
+```{r}
+# Division
+d <- x / k
+d
+```
+
+```{r}
+# Square
+x^2 
+```
+
+```{r}
+# Pairwise comparisons
+x <= k
+```
+
+### 2.2 Generates a vector of random numbers following a normal distribution using rnorm() function {#generates-a-vector-of-random-numbers-following-a-normal-distribution-using-rnorm-function}
+
+```{r}
+# generates 3 random number
+rnorm(3)   
+```
+
+```{r}
+# provide our own mean and standard deviation
+v <- rnorm(8, mean=10, sd=2)
+v
+```
+
+-   **Some common Function on Vector in R**
+-   max(), min(), length(), sum().
+-   mean(), median(), var(), sd().
+-   summary()
+
+# Matrices
+
+-   A matrix can be created with the matrix() function.
+
+-   The arguments to this matrix() are the set of elements in the vector.
+
+-   Specify how many numbers of rows using nrow and how many numbers of columns using ncol to get the amount of rows and columns.
+
+-   Note: By default, matrices are in column-wise order.
+
+-   Create a matrix a blank matrix
+
+```{r}
+A = matrix(,nrow = 6, ncol = 4)
+A
+```
+
+-   creating a matrix
+
+```{r}
+# In R programming, a 2D array is referred to as a "matrix"
+m <- matrix(c(3,4,5,6), nrow = 2, ncol = 2)
+m
+```
+
+```{r}
+# To determines if an object is a matrix
+is.matrix(m)
+```
+
+-   create a matrix with strings
+
+```{r}
+# By default, matrices are in column-wise order
+# to make it in row, byrow = TRUE,
+m1<- matrix(c("orange", "lime","red","blue"), nrow = 2, ncol = 2)
+m1
+```
+
+```{r}
+#The Number of rows and columns in a Matrix
+dim(m) 
+```
+
+```{r}
+#The dimension of a Matrix
+length(m)
+```
+
+-   Acessing the Matrix Items
+-   The items can be accessed with the brackets [ ]. The first number, “1,” in the bracket, specifies the row position, while the second, “2,” specifies the column position.
+
+```{r}
+m <- matrix(c(3,4,5,6), nrow = 2, ncol = 2)
+m
+```
+
+```{r}
+# First row and second column
+m[1, 2]
+```
+
+```{r}
+# To access the whole row
+m[1, ]
+```
+
+```{r}
+# To access the whole column
+m[, 2]
+```
+
+-   Access More Than One Row/or Access More Than One Column
+
+```{r}
+mat <- matrix(c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3)
+mat
+```
+
+```{r}
+#Access More Than One Row
+mat[c(1,3), ]
+```
+
+```{r}
+#Access More Than One Column
+mat[ , c(1,2)]
+```
+
+-   Add Rows and Columns
+
+-   Use the rbind() function to add additional rows in a Matrix.
+
+-   Use the cbind() function to add additional columns in a Matrix
+
+-   Note: The cells in the new row must be of the same length as the existing matrix.
+
+```{r}
+#Add additional rows in a Matrix
+newmatrix <- rbind(mat, c(20,30,40))
+newmatrix
+```
+
+```{r}
+#Add additional columns in a Matrix 
+newmatrix <- cbind(mat, c(20,30,40))
+newmatrix
+```
+
+```{r}
+#Remove the first row and the first column
+newmat <- mat[-c(1), -c(1)]
+newmat
+```
+
+-   combine two Matrices
+
+```{r}
+Mat1 <- matrix(c(1,2,3,4), nrow = 2, ncol = 2)
+Mat2 <- matrix(c(10,20,30,40), nrow = 2, ncol = 2)
+# Adding it as a rows
+Mat_Combined <- rbind(Mat1, Mat2)
+Mat_Combined
+```
+
+```{r}
+# Adding it as a columns
+Mat_Combined <- cbind(Mat1, Mat2)
+Mat_Combined
+```
+
+## 3.1 Operations on Matrices in R
+
+-   Matrices Multiplication
+
+-   For matrix multiplication to be valid, the number of columns in the first matrix (mat3) must equal the number of rows in the second matrix (mat4).
+
+-   The resulting matrix will have the same number of rows as the first matrix (mat3) and the same number of columns as the second matrix (mat4).
+
+```{r}
+mat3 <- matrix(rep(5,9), ncol = 3)
+mat3
+```
+
+```{r}
+mat4 <- matrix(rep(6, 6), ncol = 2)
+mat4
+```
+
+-   Multiplying two Matrics
+
+```{r}
+mat5 <- mat3%*%mat4 
+mat5
+```
+
+-   Multiplying matrices and vectors
+-   To multiply a matrix by a vector, the condition is that the number of columns in the matrix must equal the number of rows in the vector.
+-   The product of a matrix and a vector will be a vector with the same number of rows as the matrix.
+-   Note: In R, a vector is typically treated as a column vector by default.
+
+```{r}
+# A matrix with a number of row = 2 and column = 3
+A <- matrix(c(1,0,-1,-3,2,1), ncol = 3)
+A
+```
+
+```{r}
+# A vector with 3 rows and 1 column
+x <- c(2,1,0)
+x
+```
+
+```{r}
+A%*%x # [2 x 3] * [3 x 1] = [2 x 1]
+```
+
+-   Matrices Addition and Subtraction
+
+-   The condition for matrix addition is that both matrices must have the same number of rows and columns to be added together.
+
+-   The condition for subtracting matrices is that the number of rows and columns in both matrices must be the same.
+
+```{r}
+B <- matrix((rep(c(1,3,5), times = 3)), ncol = 3)
+B
+```
+
+```{r}
+C <- matrix((rep(c(2,4,6), times = 3)), ncol = 3)
+C
+```
+
+```{r}
+#Matrices Addition
+(B+C) # [3 x 3] * [3 x 3] = [3 x 3]
+```
+
+-   Matrix Transpose
+
+-   The transpose of a matrix is a new matrix created by interchanging the rows and columns of the original matrix.
+
+-   The determinant of a matrix is the scalar value or number calculated using a square matrix.
+
+```{r}
+A <- matrix(c(1,4,0,8,1,3,7,2,1), ncol = 3)
+A
+```
+
+```{r}
+t(A)
+```
+
+```{r}
+# Determinant: The matrix has to be square
+det(A)
+```
+
+-   Inverse of a Matrix
+
+-   A square matrix is invertible if its determinant is not zero.
+
+-   A matrix without an inverse is called singular
+
+```{r}
+A <- matrix(c(1,4,0,8,1,3,7,2,1), ncol = 3)
+A
+```
+
+```{r}
+solve(A)  #Inverting a Square Matrix
+```
+
+-   Create a Diagonal or Identity Matrix using the diag() function
+
+```{r}
+# Create a 3x3 identity matrix
+identity_matrix <- diag(3) 
+identity_matrix
+```
+
+```{r}
+diag(c(2,5,9))
+```
+
+```{r}
+# TinyTex
+```
+
+```{r}
+A <- matrix(c(3,5,9,
+            10,8,7,
+            6,2,4), nrow = 3, byrow = TRUE)
+A
+
+```
+
+```{r}
+c <- c(9, 12, 32) #Vector
+c
+```
+
+```{r}
+# Solving the linear system
+solve(A)%*%c
+```
+
+-   Stores the row and column names
+
+```{r}
+A
+```
+
+```{r}
+rownames(A) <- c("row1", "row2", "row3")
+colnames(A) <- c("col1", "col2", "col3")
+A
+```
+
+```{r}
+rowSums(A) 
+
+colSums(A)
+
+rowMeans(A) # Row mean
+
+colMeans(A) # Column mean
+```
+
+-   Apply() Function To summarize the data in matrix
+
+```{r}
+A
+
+apply(A, 1, sum) #The sum of each row
+
+apply(A, 2, sum) #The sum of each column
+```
+
+```{r}
+# Apply function to transform the values in each cell
+apply(A, 1:2, function(x) x+3)
+```
+
+-   Create a Matrix of Uniform Distributed Random Variables
+
+```{r}
+Uni_Mat <- matrix(runif(50, 0, 1), 10, 5, byrow = TRUE)
+Uni_Mat
+```
+
+# 4. Data Frames
+
+-   A Data Frame is data displayed in a table or a two-dimensional array, with each column containing values of one variable and each row containing one set of values from each column.
+
+-   Use the data.frame() function to create a data frame.
+
+-   The data stored in a data frame can be of numeric, factor or character type.
+
+-   Each column should contain same number of data items.
+
+## 4.1 Create the Data Frame
+
+```{r}
+library(epiDisplay)
+cancer.data <- data.frame( 
+  id = c(1:7),
+  hospital = c("Public hospital"," Private hospital","Public hospital", "Public hospital",
+              "Public hospital"," Private hospital"," Private hospital"),
+  Age = c(60,57,71,65,53,80,74),
+  Recruitment_date = as.Date(c("2012-01-01", "2012-09-23", "2012-11-15", "2012-05-11",
+                         "2012-10-19","2012-11-21","2012-12-29")),
+  stringsAsFactors = FALSE)
+cancer.data
+```
+
+```{r}
+#### Data Inspection
+is.data.frame(cancer.data)
+
+des(cancer.data)
+```
+
+## 4.2 Subset Data Frame in R using dplyr package
+
+-   We can use a filter function to see parts of our data frame that meet a certain condition.
+
+```{r results='hide'}
+library(dplyr)
+
+# Show mpg less than 20
+
+mtcars_20 <- filter(mtcars, mpg < 20)
+head(mtcars_20)
+```
+
+```{r results='hide'}
+# Show cyl = 8
+mtcars_cyl_8 <- filter(mtcars, cyl== "8")
+head(mtcars_cyl_8)
+```
+
+```{r results='hide'}
+# Show mpg less than 20, wt greater than 3 and cyl = 6
+mtcars_mpg_wt_cyl <- filter(mtcars, mpg < 20 & wt > 3 & cyl == "6")
+head(mtcars_mpg_wt_cyl)
+```
+
+```{r results='hide'}
+# Show mpg less than 20, wt greater than 3 and cyl = 6 or = 8
+mtcars_mpg_wt_cyl <- filter(mtcars, mpg < 20 & wt > 3 & cyl == "6" | cyl == "8" )
+head(mtcars_mpg_wt_cyl)
+```
+
+-   Sort in descending order:
+
+```{r results='hide'}
+arranged_data <- mtcars %>% arrange(desc(mpg))
+arranged_data
+```
+
+-   Create a new column mpg_km (convert mpg to km per liter: 1 mpg ≈ 0.425 km/l):
+
+```{r results='hide'}
+mutated_data <- mtcars %>% mutate(mpg_km = mpg * 0.425)
+mutated_data
+```
+
+-   Move hp (horsepower) to the first column:
+
+```{r results='hide'}
+relocated_data <- mtcars %>% relocate(hp, .before = mpg)
+relocated_data
+```
+
+## 4.3 Overview of Data Frame Operations
+
+```{r}
+empty <- data.frame()
+c1 <- 1: 10
+
+letters
+c2 <- letters[1:10]
+c1
+c2
+
+df <- data.frame(col.name.1 = c1 , col.name.2 = c2)
+df
+```
+
+## 4.4. Dealing with Missing Data
+
+```{r}
+is.na(df) # Returns a logical vector
+sum(is.na(df)) # Counts of missing value
+```
+
+-   Removing columns with missing value
+
+```{r}
+clean_data <- na.omit(df) #Remove rows with any missing value
+```
+
+-   Removing columns with missing values:
+
+```{r}
+clean_data <- df[, colSums(is.na(df)) == 0] # Removes columns with any NA
+```
+
+# 5. SQL With R
+
+* To connect R to a MySQL database, you need to install the DBI and RMariaDB (or RMySQL) packages. After loading these libraries, you can establish a connection using the dbConnect() function, providing your database credentials like username, password, database name, and host. Once connected, you can execute SQL queries using dbGetQuery() to retrieve data or dbExecute() to modify data (such as inserting or updating records). After working with the data, you can perform analysis in R, such as summarizing or manipulating the results, and then close the connection with dbDisconnect(). This allows R to interact seamlessly with your SQL database for data retrieval and manipulation.
+
+```{r}
+# install.packages("DBI")
+# install.packages("RMariaDB")
+
+# Load libraries
+# library(DBI)
+# library(RMariaDB)
+
+# Establish connection to MySQL database
+# conn <- dbConnect(RMariaDB::MariaDB(), user = 'your_username', password = 'your_password', dbname = 'your_dbname', host = 'your_host',  port = 3306)
+
+# Run a SELECT query to fetch data from the 'employees' table
+# query_result <- dbGetQuery(conn, "SELECT * FROM employees")
+
+# View the first few rows of the result
+# head(query_result)
+```
+
+# 6. Web Scraping in R
+
+ * Web scraping in R can be done using packages like rvest and httr. First, you need to install and load these libraries with install.packages("rvest") and install.packages("httr"). You can then use read_html(url) to read the HTML content of a web page, and extract specific data using CSS selectors with html_nodes() and html_text(). For example, to extract titles from a website, use webpage %\>% html_nodes(".title-class")   %\>% html_text(). You can extract links using html_attr("href"), tables with html_table(), and images with html_attr("src"). If the website has multiple pages, handle pagination by extracting the "next page" link and scraping subsequent pages. After scraping, you can save the data into a CSV file using write.csv(). Be sure to check the website’s robots.txt file to ensure you're allowed to scrape and handle errors gracefully with functions like tryCatch(). If a site uses JavaScript to load content dynamically, consider using RSelenium or webdriver for handling the dynamic content.
+
+```{r}
+
+# Set a CRAN mirror before installing the package
+# CRAN (the Comprehensive R Archive Network) has many servers around the world, and R needs to know which one to use for downloading the requested package. 
+# options(repos = c(CRAN = "https://cloud.r-project.org/"))
+
+# Install and load necessary packages
+# install.packages("rvest")
+# library(rvest)
+
+# Define the URL of the webpage (BBC News)
+# url <- "https://www.bbc.com/news"
+
+# Read the HTML content of the webpage (parse HTML)
+# webpage <- read_html(url)
+
+# Extract article titles using the appropriate CSS selector
+# titles <- webpage %>%
+#  html_nodes(".gs-c-promo-heading__title") %>%  # Selector for article titles
+#  html_text()
+
+# Print the extracted titles
+# print(titles)
+```
+
+# 7. IF Statement,Else If,NESTED , WHILE LOOP , FOR LOOPS
+
+-   If Statement An "if statement" is written with the if keyword, and it is used to specify a block of code to be executed if a condition is TRUE:
+
+```{r}
+a <- 33
+b <- 200
+
+if (b > a) {
+  print("B is greater than a")
+} 
+```
+
+-   Else If The else if keyword is R's way of saying "if the previous conditions were not true, then try this condition":
+
+```{r}
+a <- 33
+b <- 33
+
+if (b > a) {
+  print("b is greater than a")
+} else if (a == b) {
+  print ("a and b are equal")
+}
+```
+
+-   If Else
+
+```{r}
+a <- 200
+b <- 33
+
+if (b > a) {
+  print("b is greater than a")
+} else if (a == b) {
+  print("a and b are equal")
+} else {
+  print("a is greater than b")
+}
+```
+
+-   Nested If statement You can also have if statements inside if statements, this is called nested if statements.
+
+```{r}
+x <- 41
+if (x > 10){
+  print("Above Ten")
+  if (x > 20) {
+    print("Above 20")
+  } else {
+    print("but not greater than 20")
+  }
+}else {
+  print("X is ")
+}
+```
+
+-   While Loops
+
+With the while loop we can execute a set of statements as long as a condition is TRUE:
+
+```{r}
+i <- 1
+while (i < 6) {
+  print(i)
+  i <- i + 1
+}
+```
+
+-   break statement ,we can stop the loop even if the while condition is TRUE:
+
+```{r}
+i <- 1 
+while (i <6) {
+  print(i)
+  i <- i + 1
+  if (i == 4) {
+    break
+  }
+}
+```
+
+-   Next statement, we can skip an interation without terminating the loop:
+
+```{r}
+i <- 0
+while (i < 6){
+  i <- i + 1
+  if (i == 3) {
+    next
+  }
+  print(i)
+}
+```
+
+```{r}
+dice <- 1
+while( dice <= 6) {
+    if (dice < 6) {
+    print ("NO yahtzee")
+  } else{
+    print("yahtzee")
+  }
+  dice <- dice + 1
+}
+```
+
+-   For Loops\
+    A for loop is used for iterating over a sequence:
+
+```{r}
+for (x in 10) {
+  print(x)
+}
+```
+
+# 8. AND , OR Operator
+
+-   The & symbol (and) is a logical operator, and is used to combine conditional statements:
+
+```{r}
+a <- 200
+b <- 33
+c <- 500
+
+if (a > b & c > a) {
+  print("Both conditions are true")
+}
+```
+
+-   The \| symbol (or) is a logical operator, and is used to combine conditional statements:
+
+```{r}
+a <- 200
+b <- 33
+c <- 500
+
+if (a > b | a > c) {
+  print("At least one of the conditions is true")
+}
+```
+
+* For Loop
+
+```{r}
+fruits <- list("apple", "banana", "cherry")
+
+for (x in fruits) {
+  if (x == "cherry") {
+    break
+  }
+  print(x)
+}
+```
+
+```{r}
+fruits <- list("apple","banana","cherry")
+
+for (x in fruits) {
+  if (x == "banana"){
+    next
+  }
+  print(x)
+}
+```
+
+```{r}
+dice <- 1:6
+for (x in dice ) {
+  if (x == 6) {
+    print(paste("the dice number is ",x , "Yahtzee!"))
+  } else {
+    print(paste("the dice number is ",x, "Not Yahtzee"))
+  }
+}
+```
+
+* Nested loops
+A for loop is used for iterating over a sequence:
+```{r}
+adj <- list("red", "big" , "tasty")
+
+fruits <- list("apple" , "banana" , "cherry")
+  for ( x in adj) {
+    for ( y in fruits) {
+      print(paste(x,y))
+    }
+  }
+
+```
+
+# 9. Functions
+
+* A function is a block of code which only runs when it is called.
+
+* You can pass data, known as parameters, into a function.
+
+* A function can return data as a result.
+
+* To create a function, use the `function()` keyword:
+```{r}
+my_function <- function() { #create a function with name my_function
+  print("Hello world")
+}
+
+my_function() #call the function named my_function
+```
+
+* Arguments
+Information can be passed into functions as arguments.
+
+Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma.
+
+The following example has a function with one argument (fname). When the function is called, we pass along a first name, which is used inside the function to print the full name:
+
+```{r}
+my_function <- function(fname) {
+  paste(fname, "Griffin")
+}
+
+my_function("peter")
+my_function("lois")
+my_function("Stewie")
+  
+```
+
+* From a function's perspective:
+
+* A parameter is the variable listed inside the parentheses in the function definition.
+
+* An argument is the value that is sent to the function when it is called.
+* *Number of Arguments*
+
+* By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less:
+```{r}
+my_function <- function(fname, lname) {
+  paste(fname, lname)
+}
+
+my_function("Peter", "griffian")
+```
+
+```{r}
+my_function <- function(country) {
+  paste("I am from" , country)
+}
+
+my_function("Sweden")
+my_function("India")
+my_function("USA")
+```
+
+* Return Values 
+To let a function return a result, use the return() function:
+```{r}
+my_function <- function(x) {
+  return(5 * x)
+}
+
+print(my_function(3))
+print(my_function(5))
+print(my_function(9))
+```
+
+* Nested function
+
+Nested Functions
+There are two ways to create a nested function:
+
+Call a function within another function.
+Write a function within a function.
+
+```{r}
+Nested_function <- function(x,y) {
+  a <- x + y
+  return(a)
+}
+
+Nested_function(Nested_function(2,2), Nested_function(3,3))
+```
+The function tells x to add y.
+
+The first input Nested_function(2,2) is "x" of the main function.
+
+The second input Nested_function(3,3) is "y" of the main function.
+
+The output is therefore (2+2) + (3+3) = 10.
+
+```{r}
+Outer_func <- function(x) {
+  Inner_func <- function(y) {
+    a <- x + y
+    return(a)
+  }
+  return(Inner_func)
+} 
+output <- Outer_func(3)
+output(5)
+```
+
+Example Explained
+You cannot directly call the function because the Inner_func has been defined (nested) inside the Outer_func.
+
+We need to call Outer_func first in order to call Inner_func as a second step.
+
+We need to create a new variable called output and give it a value, which is 3 here.
+
+We then print the output with the desired value of "y", which in this case is 5.
+
+The output is therefore 8 (3 + 5).
+```{r}
+# break
+```
+
+
+* Function Recursion
+
+R also accepts function recursion, which means a defined function can call itself.
+
+Recursion is a common mathematical and programming concept. It means that a function calls itself. This has the benefit of meaning that you can loop through data to reach a result.
+
+The developer should be very careful with recursion as it can be quite easy to slip into writing a function which never terminates, or one that uses excess amounts of memory or processor power. However, when written correctly, recursion can be a very efficient and mathematically-elegant approach to programming.
+
+In this example, tri_recursion() is a function that we have defined to call itself ("recurse"). We use the k variable as the data, which decrements (-1) every time we recurse. The recursion ends when the condition is not greater than 0 (i.e. when it is 0).
+
+To a new developer it can take some time to work out how exactly this works, best way to find out is by testing and modifying it.
+
+```{r}
+tri_recursion <- function(k) {
+  if (k > 0) {
+    result <- k + tri_recursion(k-1)
+    print(result)
+  } else {
+    result = 0
+    return(result)
+  }
+}
+tri_recursion(6)
+```
+
+* Global Variable
+Variables that are created outside of a function are known as global variables.
+```{r}
+txt <- "global variable"
+
+my_function <- function() {
+  txt = "fantastic"
+  paste("R is", txt)
+}
+
+my_function()
+txt 
+
+```
+
+* The Global Assignment Operator
+Normally, when you create a variable inside a function, that variable is local, and can only be used inside that function.
+
+To create a global variable inside a function, you can use the global assignment operator <<-
+```{r}
+my_function <- function() {
+txt <<- "fantastic"
+  paste("R is", txt)
+}
+
+my_function()
+
+print(txt)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
